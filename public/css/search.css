@@ -1,0 +1,41 @@
+body {
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.container-form {
+    min-height: 100vh;
+}
+
+.form-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100vw;
+    margin-bottom: 50px;
+}
+
+.product-plus {
+    width: 30px;
+}
+
+.form-search__input {
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.form-search__submit {
+    display: block;
+    font-size: .9em;
+    width: 220px;
+    height: 40px;
+    margin-top: 30px;
+}

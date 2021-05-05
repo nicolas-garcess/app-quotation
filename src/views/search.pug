@@ -1,0 +1,143 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", type="text/css" href="/css/styles.css")
+        link(rel="stylesheet", type="text/css" href="/css/search.css")
+        title Cotización
+    body
+        header
+            h1(class="title") Generador de cotizaciones
+        main
+            div(class="container-form")
+                input(type="hidden" data-products=products class="data") 
+                form(class="form-search")
+                    div(class="container-data")
+                        div
+                            div
+                                label(for="") Nombre del cliente
+                            div
+                                input(type="text" name="name" required)
+                        div
+                            div
+                                label(for="") Tipo de documento 
+                            div
+                                input(list="dnilist" name="dni" required)
+                                datalist(id="dnilist")
+                                    option(value="Cédula de ciudadanía")
+                                    option(value="NIT") 
+                                    option(value="Cédula de extranjería")
+                        div
+                            div
+                                label(for="") Documento de identidad
+                            div
+                                input(type="number" name="dni" required)
+                    div(class="container-products")
+                        table(class="table-products")
+                            colgroup
+                                col(class="table-products__col1")
+                                col(class="table-products__col2")
+                                col(class="table-products__col3")
+                                col(class="table-products__col4")
+                                col(class="table-products__col5")
+                                col(class="table-products__col6")
+                            thead
+                                th(class="table-products__head") Seleccione un producto
+                                th(class="table-products__head") Precio unitario (COP)
+                                th(class="table-products__head") IVA (%)
+                                th(class="table-products__head") Cantidad
+                                th(class="table-products__head") Precio total (COP)
+                                th(class="table-products__head") 
+                            tbody(class="table-products__body")
+                                tr(class="table-products__row")
+                                    td(class="table-products__data")
+                                        input(list="products" name="products" class="product-name" required)
+                                        datalist(id="products")
+                                    td(class="table-products__data")
+                                        input(type="text"  class="product-priceu" readonly)  
+                                    td(class="table-products__data")
+                                        input(type="text" class="product-iva" readonly) 
+                                    td(class="table-products__data")
+                                        input(type="number" min="0" value="0" class="product-quantity" required)
+                                    td(class="table-products__data")
+                                        input(type="text" class="product-totalprice" readonly) 
+                                    td(class="table-products__data")
+                                        img(src="/assets/img/plus.png", alt="plus-icon" class="product-plus")                   
+                              
+                    input(type="submit" value="Buscar" class="container-update" class="form-search__submit send") 
+        
+        script.
+            //Toma información que le envía la vista
+            const products = JSON.parse(document.querySelector('.data').dataset.products);
+            const datalist = document.querySelector('#products');
+
+            let fragmentList = document.createDocumentFragment();
+
+            //Genera los option del datalist
+            for (let product of products) {
+                const option = document.createElement("option");
+                option.value = `${product.Name} ${product.Brand} ${product.Capacity}`;
+                option.dataset.id = product.ID;
+                fragmentList.appendChild(option);
+            }
+
+            datalist.appendChild(fragmentList);
+
+            
+            const product = document.querySelector('.product-name');
+            const unitPrice = document.querySelector('.product-priceu');
+            const iva = document.querySelector('.product-iva');
+
+            //Evento cuando se completa el producto seleccionado retorna su precio unitari e IVA
+            product.addEventListener('input', (e) => {
+                //Recoge el id del producto que está en la vista
+                const productID = document.querySelector(`#${e.target.getAttribute('list')} option[value="${e.target.value}"]`).dataset.id;
+                
+                for (let product of products) {
+                    if (productID === product.ID) {
+                        unitPrice.value = product["Price"];               
+                        iva.value = product["IVA"];
+                    }
+                }
+                             
+            });
+
+            //Cuando el cliente ingresa la cantidad de cada producto calcula el precio total por cada producto
+            const quantity = document.querySelector('.product-quantity'); 
+            quantity.addEventListener('input', (e) => {
+                const totalPrice = document.querySelector('.product-totalprice');
+                
+                if (unitPrice.value >= 0 && quantity.value >= 0 && iva.value) {
+                    
+                    totalPrice.value = unitPrice.value * quantity.value * (1 + iva.value/100); 
+
+                } else {
+                    alert("Ingresó valores negativos");
+                }
+            });
+
+            const imagePlus = document.querySelector('.product-plus'); 
+            imagePlus .addEventListener('click', (e) => {
+                e.preventDefault();
+                const rows = document.querySelector('.table-products__row').children;
+                console.log(Array.from(rows))
+                const tableBody = document.querySelector('.table-products__body')
+                
+                let fragmentRow = document.createDocumentFragment();
+    
+                let rowTable = document.createElement("tr");
+            
+                //Crea columnas para posteriormente agregarlas a la fila
+                for (let info of Array.from(rows)) {
+                    
+                    fragmentRow.appendChild(info);
+                }
+                console.log(fragmentRow)       
+                //Adiciona el fragmento creado a la fila y posteriormente agrega este nueva fila a la tabla
+                rowTable.appendChild(fragmentRow);
+                tableBody.appendChild(rowTable);    
+
+                
+            });

@@ -1,0 +1,19 @@
+.container-buttons {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    width: 240px;
+    height: 60px;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.button__link {
+    font-size: 35px;
+}

@@ -1,0 +1,26 @@
+body {
+    background-color: darkolivegreen;
+    min-height: 100vh;
+    color: wheat;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+h1{
+    margin: 0;
+    font-size: 5em;
+}
+
+p {
+    margin: 0;
+    font-size: 4em;
+}
+
+a {
+    color: wheat;
+    font-size: 2em;
+}
