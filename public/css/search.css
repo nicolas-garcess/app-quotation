@@ -1,10 +1,9 @@
-body {
-    /* display: flex;
-    flex-direction: column; */
-}
-
 .container-form {
     min-height: 100vh;
+}
+
+.data {
+    display: none;
 }
 
 .form-search {
@@ -21,8 +20,34 @@ body {
     margin-bottom: 50px;
 }
 
-.product-plus {
+.table-products {
+    border-spacing: 10px;
+}
+
+.table-products__data {
+    text-align: center;
+}
+
+.product-iva, .product-quantity {
+    width: 100px;
+}
+
+.product-priceu, .product-totalprice, .product-total {
+    width: 150px;
+}
+
+.product-plus, .product-delete {
     width: 30px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.table-products__total {
+    text-align: right;
+}
+
+.product-total {
+    margin-left: 20px;
 }
 
 .form-search__input {
