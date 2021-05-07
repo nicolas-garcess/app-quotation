@@ -100,8 +100,8 @@ function createCell (class_name) {
         inputText.step = 0.01;
     } else {
         inputText.type = "number";
-        inputText.min = 0;
-        inputText.value = 0;
+        inputText.min = 1;
+        inputText.value = 1;
     }
 
     return inputText;

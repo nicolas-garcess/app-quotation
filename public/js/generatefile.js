@@ -2,21 +2,20 @@ const download = document.querySelector(".button-report");
 
 //Evento que permite la descarga de la cotización
 download.addEventListener('click', async (e) => {
-    e.preventDefault() //- Evita que se refresque el sitio web
+    //e.preventDefault() // Evita que se refresque el sitio web
         
     //Lista con la información del cliente y los productos de la cotización. 
     let inputListUpper = Array.from(document.querySelector('.container-data').getElementsByTagName('input'));
     let inputListtBody = Array.from(document.querySelector('.table-products__body').getElementsByTagName('input'));
-    console.log(inputListtBody);
     let inputtfoot = document.querySelector('.product-total');
 
     let dataClient = generateObjectClient(inputListUpper);
-    const canBeDownloaded = (dataClient.name !== "" && dataClient.dnitype !== "" && dataClient.dni !== "");
+    let dataProducts = generateObjectProduct(inputListtBody);
 
     //Validación para determinar si el usuario ingresó los datos completos
-    if (canBeDownloaded) {
+    if (canBeDownloaded(dataClient, dataProducts)) {
         //Array con la información que será enviada al back-end para crear el pdf
-        let data = [dataClient, generateObjectProduct(inputListtBody), {"name":inputtfoot.name, "value":inputtfoot.value}];
+        let data = [dataClient, dataProducts, {"name":inputtfoot.name, "value":inputtfoot.value}];
         
         let fileName = "quotation.pdf";
         let fileType = "pdf";
@@ -78,6 +77,9 @@ function generateObjectProduct (array) {
     let j = 0;
     for (let i = 0; i < array.length; i++) {
         objectRow[array[i].name] = array[i].value;
+        if (objectRow["totalprice"] <= 0) {
+            return {};
+        } 
         //Cuando hay 5 elementos significa que ya se tiene un producto agregado, entonces debe cambiar al siguiente
         if (Object.keys(objectRow).length === 5) {
             totalData[j] = objectRow;
@@ -86,4 +88,11 @@ function generateObjectProduct (array) {
         }        
     }
     return totalData;
+}
+
+//Si tiene los datos del cliente completos y ningún producto tiene costo total 0 puede ser descargado el archivo.
+function canBeDownloaded (inputData, inputProducts) {
+    const dataDecision = (inputData.name !== "" && inputData.dnitype !== "" && (inputData.dni !== "" && inputData.dni > 0) && Object.keys(inputProducts).length !== 0);
+
+    return dataDecision;
 }

@@ -79,10 +79,15 @@ function calculateTotalProductCost (element) {
     //Input donde se mostrá el costo total del producto
     const totalCostElement = quantityElement.nextElementSibling.firstElementChild;
     
+
     if (priceElement.children[0].value >= 0 && quantityElement.children[0].value >= 0 && ivaElement.children[0].value) {
         
-        totalCostElement.value = priceElement.children[0].value * quantityElement.children[0].value * (1 + ivaElement.children[0].value/100); 
+        totalCostElement.value = priceElement.children[0].value * quantityElement.children[0].value * (1 + ivaElement.children[0].value/100);
+
+    } else if (priceElement.children[0].value !== "" && quantityElement.children[0].value !== "" && ivaElement.children[0].value) {
+        alert("Ingrese valores positivios");
     }
+
 }
 
 function totalQuotation() {
