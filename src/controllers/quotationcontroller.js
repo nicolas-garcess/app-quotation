@@ -54,8 +54,9 @@ Controller.exportsFile = async (req, res) => {
                         for (const key in data[i]) {
                             doc.text(`Producto: ${data[i][key].product} \n
                                     Precio unitario (COP): ${data[i][key].priceu} \n
-                                    IVA: ${data[i][key].iva}% \n 
-                                    Cantidad de elementos: ${data[i][key].quantity} \n Costo total elemento (COP): ${data[i][key].totalprice} \n`, {
+                                    IVA (%): ${data[i][key].iva} \n 
+                                    Cantidad de elementos: ${data[i][key].quantity} \n 
+                                    Costo total elemento (COP): ${data[i][key].totalprice} \n`, {
                                         width: 450,
                                         align: 'center'
                             })
@@ -81,7 +82,6 @@ Controller.exportsFile = async (req, res) => {
             });
         }
     } catch (error) {
-        console.log(error)
         res.status(404).json({
             message: "Hubo un error",
             err: error 

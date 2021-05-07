@@ -17,7 +17,6 @@ const staticOptions = {
 require('dotenv').config();
 const PORT = process.env.PORT || 3002;
 
-
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 

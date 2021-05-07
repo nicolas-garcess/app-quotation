@@ -12,6 +12,7 @@ function addRow (element, elementIndex) {
 
     let fragmentTable = document.createDocumentFragment();
 
+    //Genera las celdas que serán agregadas a la tabla
     for (let cellN of cellsName) {
         let cell = document.createElement('td');
         cell.classList.add("table-products__data");
@@ -118,6 +119,7 @@ function createImage (class_name, altName, srcURL) {
 
 const tbody = document.querySelector('.table-products__body');
 
+//Función que perite eliminar la fila seleccionada
 function deleteRow (elementIndex) {
     let tbodyChildren = tbody.children;
     tbody.removeChild(tbodyChildren[elementIndex]);

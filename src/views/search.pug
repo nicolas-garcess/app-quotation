@@ -15,13 +15,13 @@ html(lang="es")
                 input(type="hidden" data-products=products class="data") 
                 form(class="form-search")
                     div(class="container-data")
-                        div
-                            div
+                        div(class="container-client")
+                            div(class="client-label")
                                 label(for="") Nombre del cliente
                             div
                                 input(type="text" name="name" required)
-                        div
-                            div
+                        div(class="container-client")
+                            div(class="client-label")
                                 label(for="") Tipo de documento 
                             div
                                 input(list="dnilist" name="dnitype" required)
@@ -29,8 +29,8 @@ html(lang="es")
                                     option(value="Cédula de ciudadanía")
                                     option(value="NIT") 
                                     option(value="Cédula de extranjería")
-                        div
-                            div
+                        div(class="container-client")
+                            div(class="client-label")
                                 label(for="") Documento de identidad
                             div
                                 input(type="number" name="dni" required)
@@ -51,8 +51,8 @@ html(lang="es")
                                 th(class="table-products__head") Costo total (COP)
                                 th(class="table-products__head") 
                             tbody(class="table-products__body")
-                                           
-                    input(type="button" value="Decargar PDF" class="button-report" class="form-search__submit send") 
+                    div(class="conatiner-report") 
+                        input(type="button" value="Decargar cotización" class="send button-report") 
         
         script(src="/js/rowtable.js" type="module")
         script(src="/js/calculateproduct.js" type="module")
